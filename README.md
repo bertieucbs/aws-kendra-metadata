@@ -4,7 +4,7 @@
 
 Reference : https://docs.aws.amazon.com/kendra/latest/dg/s3-metadata.html
 
-You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
+When the source of your data is an Amazon S3 bucket or an Amazon S3 data source, you can apply custom attributes to your documents using metadata files. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
 
 Your document metadata is defined in a JSON file. The file must be a UTF-8 text file without a BOM marker. The file name of the JSON file should be document.extension.metadata.json, where "document" is the name of the document that the metadata applies to and "extension" is the file extension for the document.
 
@@ -72,7 +72,7 @@ example
 
 ```
 
-## Concepts
+## Architecture
 
 We will be implementing below architecture for our demo. 
 
@@ -80,12 +80,22 @@ We will be implementing below architecture for our demo.
 
 
 Step 1 : Export your web pages into following files 
+
 - quarantine-isolation.txt --> This will have main text (example description which you want to index
 - quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document.
 
 Step 2 : Create following folders in your sample S3 bucket and upload the files as directed below
+
 - data/ : This will have main text (example description which you want to index e.g. quarantine-isolation.txt
 - metadata/data/ : This will have the meta data attributes which you want to export and associate with your document. e.g. quarantine-isolation.txt.metadata.json
 
 Step 3 : Do the following in Amazon Kendra 
+
+* Create Kendra index. Reference : [Creating an Index](https://docs.aws.amazon.com/kendra/latest/dg/create-index.html)
+* Create Datasource using S3 bucket as source and pointing to data and metadata folders. Reference : [Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
+* Use the console or the [UpdateIndex API](https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html) to create the index fields. The supported field types are date, long, string, and string list. Reference : [Creating custom document attributes](https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html)
+
+Once all the steps are done and verified, you can search your content. 
+
+
 
