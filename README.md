@@ -1,0 +1,1 @@
+# aws-kendra-metadata
