@@ -71,3 +71,21 @@ example
 }
 
 ```
+
+## Concepts
+
+We will be implementing below architecture for our demo. 
+
+![](images/kendra-metadata.drawio.png)
+
+
+Step 1 : Export your web pages into following files 
+- quarantine-isolation.txt --> This will have main text (example description which you want to index
+- quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document.
+
+Step 2 : Create following folders in your sample S3 bucket and upload the files as directed below
+- data/ : This will have main text (example description which you want to index e.g. quarantine-isolation.txt
+- metadata/data/ : This will have the meta data attributes which you want to export and associate with your document. e.g. quarantine-isolation.txt.metadata.json
+
+Step 3 : Do the following in Amazon Kendra 
+
