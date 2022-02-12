@@ -10,6 +10,8 @@ Your document metadata is defined in a JSON file. The file must be a UTF-8 text 
 
 The content of the JSON file follows this template. All of the attributes are optional. If you don't specify the _source_uri, then the links returned by Amazon Kendra in search results point to the Amazon S3 bucket that contains the document. 
 
+###### Below is an example from the developer documentations mentioned above
+
 ```
 {
     "DocumentId": "document ID",
@@ -37,6 +39,9 @@ The content of the JSON file follows this template. All of the attributes are op
 
 ```
 
+- You can add additional information to the Attributes field about a document that you use to filter queries or to group query responses. For more information, see Creating custom document attributes of Amazon Kendra's dev document.
+- The AccessControlList field enables you to filter the response from a query so that only certain users and groups have access to documents. For more information, see Filtering on user context of Amazon Kendra's dev document.
+
 ## Background
 
 You may have a situation where there is an existing CMS or content which you would like to export out in JSON and index it in Kendra. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
@@ -51,6 +56,7 @@ example
 
 - quarantine-isolation.txt --> This will have main text (example *description*  which you want to index
 - quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document. 
+
 
 ```
 {
