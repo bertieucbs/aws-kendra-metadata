@@ -1,4 +1,15 @@
+
+
 # Amazon S3 document metadata
+
+## What you'll learn in this tutorial:
+
+
+This tutorial takes about 30-45 minutes to complete.
+
+In this tutorial, you'll:
+
+
 
 ## Concepts
 
