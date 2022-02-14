@@ -169,6 +169,6 @@ While creating point to the correct data and metadata folders in your S3 bucket 
 
 After creation, your data source should be in an active state
 
-![](images/createDS2ei.png)
+![](images/createDS2.png)
 
 
