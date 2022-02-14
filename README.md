@@ -111,7 +111,7 @@ Step 2 : Create following folders in your sample S3 bucket and upload the files 
 
 Step 3 : Do the following in Amazon Kendra 
 
-* Create Kendra index. Reference : [Creating an Index](https://docs.aws.amazon.com/kendra/latest/dg/create-index.html)
+* Create Kendra index. 
 * Create Datasource using S3 bucket as source and pointing to data and metadata folders. Reference : [Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
 * Use the console or the [UpdateIndex API](https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html) to create the index fields. The supported field types are date, long, string, and string list. Reference : [Creating custom document attributes](https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html)
 
@@ -123,9 +123,52 @@ Once all the steps are done and verified, you can search your content.
 
 ##### Prerequisite 
 
-Any lateste version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. 
+*Any lateste version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. *
+
+1. Create a folder 'KendraMetaData' on your local and download the 'exportDocumentsKendraMetadata.js' node.js file in it. run 'npm install' to install the dependancies listed in 'package.json' file. 
+2. Within 'KendraMetaData', create two more folders 'data/documents/' and 'data/metadata/'
+3. The sample code will do the following 
+4. Iterate through each of sample web urls and fetch basic info like title, description, keywords etc.
+5. Create fileName.txt and put 'description' in it for indexing. Store in folder 'data/documents/'
+6. Create fileName.txt.metadata.json with custom attributes/metadata about the document. Store in folder 'data/metadata/'
+7. Run the sample code by typing
+
+```
+node exportDocumentsKendraMetadata.js
+```
+
+### Step 2
+
+Create and S3 bucket in region of your choice. For the tutorial create in us-west-2 region. 
+
+For basics of how to create S3 bucket refer [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
+
+### Step 3 Create Kendra Index
+
+Create Kendra Index as shown. Reference : [Creating an Index](https://docs.aws.amazon.com/kendra/latest/dg/create-index.html)
+
+**Note** : Amazon Kendra requires permissions to access your CloudWatch log. Choose an existing IAM role or create a role for you.
+
+After creation, your Index should be in an active state
+
+![](images/createIndex.png)
+
+### Step 4 : Create Kendra S3 Data source
+
+Create a data source using S3 as data source where you have uploaded the files. 
+
+[Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
+
+While creating point to the correct data and metadata folders in your S3 bucket created in Step 2 above. 
+
+**Note** : 
+1. Amazon Kendra requires permissions for other services (S3 bucket in this case) to create this data source. Choose an existing IAM role or create a role for you.
+2. Select On-Demand for run schedule 
+
+![](images/createDS1.png)
+
+After creation, your data source should be in an active state
+
+![](images/createDS2ei.png)
 
 
-
-
-    
