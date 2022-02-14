@@ -15,6 +15,9 @@ In this tutorial, you'll:
 
 Reference : https://docs.aws.amazon.com/kendra/latest/dg/s3-metadata.html
 
+#### What is Amazon Kendra
+Amazon Kendra is a highly accurate and easy to use enterprise search service that’s powered by machine learning. Kendra delivers powerful natural language search capabilities to your websites and applications so your end users can more easily find the information they need within the vast amount of content spread across your company.
+
 When the source of your data is an Amazon S3 bucket or an Amazon S3 data source, you can apply custom attributes to your documents using metadata files. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
 
 Your document metadata is defined in a JSON file. The file must be a UTF-8 text file without a BOM marker. The file name of the JSON file should be document.extension.metadata.json, where "document" is the name of the document that the metadata applies to and "extension" is the file extension for the document.
@@ -114,5 +117,15 @@ Step 3 : Do the following in Amazon Kendra
 
 Once all the steps are done and verified, you can search your content. 
 
+## Getting Started
+
+### Step 1
+
+##### Prerequisite 
+
+Any lateste version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. 
 
 
+
+
+    
