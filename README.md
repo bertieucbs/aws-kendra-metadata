@@ -1,6 +1,6 @@
 
 
-# Amazon S3 document metadata
+# Amazon S3 document metadata tutorial
 
 ## What you'll learn in this tutorial:
 
@@ -222,3 +222,16 @@ With all set up, we will now sync our data source in Step 4 above.
 #### You can look into the sync details by click on the data source and going on the details page. You will see total number of documents added. If there are errors, you can inspect the cloudwatch logs. 
 
 ![](images/syncDetails.png)
+
+### Step 7 : Search indexed content
+
+With our content indexed, lets search indexed content
+
+#### Select Search indexed content
+
+![](images/searchIndex1.png)
+
+#### Search the content
+
+![](images/searchIndex2.png)
+
