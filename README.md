@@ -159,7 +159,6 @@ Upload the generated files in your local folder under *'data/metadata/'* to S3 b
 
 ![](images/s3DocumentMetadata.png)
 
-
 ### Step 3 : Create Kendra Index
 
 Create Kendra Index as shown. Reference : [Creating an Index](https://docs.aws.amazon.com/kendra/latest/dg/create-index.html)
