@@ -143,6 +143,23 @@ Create an S3 bucket in region of your choice. For the tutorial create in us-west
 
 For basics of how to create S3 bucket refer [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
 
+Once the bucket is created, we will create two folders 
+
+1. data/
+2. metadata/
+   - data/
+
+For the uploads follow the process 
+
+Upload the generated files in your local folder under *'data/documents/'* to S3 bucket's *data/*
+
+![](images/s3Document.png)
+
+Upload the generated files in your local folder under *'data/metadata/'* to S3 bucket's *metadata/data/*
+
+![](images/s3DocumentMetadata.png)
+
+
 ### Step 3 : Create Kendra Index
 
 Create Kendra Index as shown. Reference : [Creating an Index](https://docs.aws.amazon.com/kendra/latest/dg/create-index.html)
