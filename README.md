@@ -137,13 +137,13 @@ Once all the steps are done and verified, you can search your content.
 node exportDocumentsKendraMetadata.js
 ```
 
-### Step 2
+### Step 2 : Create S3 bucket
 
-Create and S3 bucket in region of your choice. For the tutorial create in us-west-2 region. 
+Create an S3 bucket in region of your choice. For the tutorial create in us-west-2 region. 
 
 For basics of how to create S3 bucket refer [Creating a bucket](https://docs.aws.amazon.com/AmazonS3/latest/userguide/create-bucket-overview.html)
 
-### Step 3 Create Kendra Index
+### Step 3 : Create Kendra Index
 
 Create Kendra Index as shown. Reference : [Creating an Index](https://docs.aws.amazon.com/kendra/latest/dg/create-index.html)
 
@@ -172,3 +172,18 @@ After creation, your data source should be in an active state
 ![](images/createDS2.png)
 
 
+### Step 5 : Create Facet definition
+
+In order to enable an attribute to be returned in the query result , you need to enable faceting for that specific field on the Facets definition page.
+
+On the Facet definition page in the Amazon Kendra console, you will find 4 options:
+
+* **Facetable**: Indicates that the field can be used to create search facets, a count of results for each value in the field. The default is false .
+* **Searchable**: Determines whether the field is used in the search. If the Searchable field is true, you can use relevance tuning to manually tune how Amazon Kendra weights the field in the search. The default is true for string fields and false for number and date fields.
+* **Displayable**: Determines whether the field is returned in the query response. The default is true.
+* **Sortable**: Determines whether the field can be used to sort the results of a query. If you specify sorting on a field that does not have Sortable set to true, Amazon Kendra returns an exception. The default is false.
+
+| Fields  | Types |
+| ------------- | ------------- |
+| Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  |
