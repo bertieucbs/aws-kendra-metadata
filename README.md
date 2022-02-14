@@ -2,14 +2,13 @@
 
 # Amazon S3 document metadata tutorial
 
-## What you'll learn in this tutorial:
+### What you'll learn in this tutorial:
 
+1. You will add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. 
+2. Create an Index, Data source , Index fields and sync the data
+3. Search indexed data
 
 This tutorial takes about 30-45 minutes to complete.
-
-In this tutorial, you'll:
-
-
 
 ## Concepts
 
