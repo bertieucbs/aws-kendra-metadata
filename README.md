@@ -199,3 +199,26 @@ Repeat above steps with below Fields adding the data type and index usage types.
 | image  | String - Searchable, Displayable  |
 | icon  | String - Searchable, Displayable  |
 | keywords  | String - Searchable, Displayable  |
+
+**Note** : Amazon Kendra has 15 reserved fields, which you can map to your document attributes. For more information, please refer [Index](https://docs.aws.amazon.com/kendra/latest/dg/hiw-index.html)
+
+
+### Step 6 : Sync/Index your Data source. 
+
+With all set up, we will now sync our data source in Step 4 above. 
+
+#### Select the data source and click Sync now
+
+![](images/syncNow.png)
+
+#### Once sync starts, it will show an in progress message above. 
+
+![](images/syncStatus.png)
+
+#### Once sync completes, you will see a success message as shown below. 
+
+![](images/syncCompleted.png)
+
+#### You can look into the sync details by click on the data source and going on the details page. You will see total number of documents added. If there are errors, you can inspect the cloudwatch logs. 
+
+![](images/syncDetails.png)
