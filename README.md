@@ -1,21 +1,22 @@
 
 
-# Amazon S3 document metadata tutorial
+# Amazon Kendra - S3 document metadata tutorial
 
-## What you'll learn in this tutorial:
+### What you'll learn in this tutorial:
 
+1. Use Kendra to index your exported content from a CMS or other content source 
+2. You will add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. 
+3. Create an Amazon Kendra index, Data source , Index fields and sync the data
+4. Search indexed data
 
 This tutorial takes about 30-45 minutes to complete.
-
-In this tutorial, you'll:
-
-
 
 ## Concepts
 
 Reference : https://docs.aws.amazon.com/kendra/latest/dg/s3-metadata.html
 
 #### What is Amazon Kendra
+
 Amazon Kendra is a highly accurate and easy to use enterprise search service that’s powered by machine learning. Kendra delivers powerful natural language search capabilities to your websites and applications so your end users can more easily find the information they need within the vast amount of content spread across your company.
 
 When the source of your data is an Amazon S3 bucket or an Amazon S3 data source, you can apply custom attributes to your documents using metadata files. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
@@ -54,23 +55,24 @@ The content of the JSON file follows this template. All of the attributes are op
 ```
 
 - You can add additional information to the Attributes field about a document that you use to filter queries or to group query responses. For more information, see Creating custom document attributes of Amazon Kendra's dev document.
-- The AccessControlList field enables you to filter the response from a query so that only certain users and groups have access to documents. For more information, see Filtering on user context of Amazon Kendra's dev document.
+- The AccessControlList field enables you to filter the response from a query so that only certain users and groups have access to documents. For more information, see Filtering on user context of Amazon Kendra's dev document. We will not be covering AccessControlList in this tutorial
 
 ## Background
 
 You may have a situation where there is an existing CMS or content which you would like to export out in JSON and index it in Kendra. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
 
-In this demo, we will export two files from a webpage with our sample code
+In this demo, we will export two files from sample webpages with our sample code
 
-* Document with primary text/blob which you want to index 
-* Associated metadata, additional information about a document
+* A document with primary text/blob which you want to index. 
+* Associated metadata, additional information about that document
 
 
-example
+Example
 
 - quarantine-isolation.txt --> This will have main text (example *description*  which you want to index
 - quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document. 
 
+Below is an example of what quarantine-isolation.txt.metadata.json would contain
 
 ```
 {
@@ -99,21 +101,22 @@ We will be implementing below architecture for our demo.
 ![](images/kendra-metadata.drawio.png)
 
 
-Step 1 : Export your web pages into following files 
+Step 1 : Export your sample web pages into following files
 
-- quarantine-isolation.txt --> This will have main text (example description which you want to index
+- quarantine-isolation.txt --> This will have main text (example description which you want to index)
 - quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document.
 
 Step 2 : Create following folders in your sample S3 bucket and upload the files as directed below
 
-- data/ : This will have main text (example description which you want to index e.g. quarantine-isolation.txt
-- metadata/data/ : This will have the meta data attributes which you want to export and associate with your document. e.g. quarantine-isolation.txt.metadata.json
+- **data/** : This will have main text (example *description* which you want to index e.g. *quarantine-isolation.txt*
+- **metadata/data/** : This will have the meta data attributes which you want to export and associate with your document. e.g. *quarantine-isolation.txt.metadata.json*
 
 Step 3 : Do the following in Amazon Kendra 
 
 * Create Kendra index. 
 * Create Datasource using S3 bucket as source and pointing to data and metadata folders. Reference : [Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
 * Use the console or the [UpdateIndex API](https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html) to create the index fields. The supported field types are date, long, string, and string list. Reference : [Creating custom document attributes](https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html)
+* Sync the content
 
 Once all the steps are done and verified, you can search your content. 
 
@@ -121,17 +124,17 @@ Once all the steps are done and verified, you can search your content.
 
 ### Step 1
 
-##### Prerequisite 
+##### Prerequisites
 
-*Any lateste version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. *
+**Note** : *Any latest version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. *
 
-1. Create a folder 'KendraMetaData' on your local and download the 'exportDocumentsKendraMetadata.js' node.js file in it. run 'npm install' to install the dependancies listed in 'package.json' file. 
+1. Create a folder 'KendraMetaData' on your local or [AWS Cloud9](https://aws.amazon.com/cloud9/) and download the 'exportDocumentsKendraMetadata.js' node.js file in it. Run 'npm install' to install the dependancies listed in 'package.json' file. 
 2. Within 'KendraMetaData', create two more folders 'data/documents/' and 'data/metadata/'
 3. The sample code will do the following 
-4. Iterate through each of sample web urls and fetch basic info like title, description, keywords etc.
-5. Create fileName.txt and put 'description' in it for indexing. Store in folder 'data/documents/'
-6. Create fileName.txt.metadata.json with custom attributes/metadata about the document. Store in folder 'data/metadata/'
-7. Run the sample code by typing
+   - Iterate through each of sample web urls and fetch basic info like 'title', 'description', 'keywords' etc.
+   - Create 'fileName.txt' and put 'description' in it for indexing. Programme will store in folder 'data/documents/'
+   - Create 'fileName.txt.metadata.json' with custom attributes/metadata about the document. Programme will store in folder 'data/metadata/'
+7. Run the sample code by typing and verify the outputs and generated files in the folders
 
 ```
 node exportDocumentsKendraMetadata.js
@@ -149,16 +152,15 @@ Once the bucket is created, we will create two folders
 2. metadata/
    - data/
 
-For the uploads follow the process 
+For the uploads follow the process:
 
-Upload the generated files in your local folder under *'data/documents/'* to S3 bucket's *data/*
+Upload the generated files from your local folder under *'data/documents/'* to S3 bucket's *data/*
 
 ![](images/s3Document.png)
 
-Upload the generated files in your local folder under *'data/metadata/'* to S3 bucket's *metadata/data/*
+Upload the generated files from your local folder under *'data/metadata/'* to S3 bucket's *metadata/data/*
 
 ![](images/s3DocumentMetadata.png)
-
 
 ### Step 3 : Create Kendra Index
 
@@ -176,9 +178,10 @@ Create a data source using S3 as data source where you have uploaded the files.
 
 [Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
 
-While creating point to the correct data and metadata folders in your S3 bucket created in Step 2 above. 
+While creating the data source, point to the correct data and metadata folders in your S3 bucket created in Step 2 above. 
 
 **Note** : 
+
 1. Amazon Kendra requires permissions for other services (S3 bucket in this case) to create this data source. Choose an existing IAM role or create a role for you.
 2. Select On-Demand for run schedule 
 
@@ -204,7 +207,7 @@ On the Facet definition page in the Amazon Kendra console, you will find 4 optio
 
 ![](images/addFacet2.png)
 
-Repeat above steps with below Fields adding the data type and index usage types. 
+Repeat above steps with below fields adding the data type and index usage types. 
 
 | Fields  | Details (Data Type & Index Type) |
 | ------------- | ------------- |
@@ -217,12 +220,12 @@ Repeat above steps with below Fields adding the data type and index usage types.
 | icon  | String - Searchable, Displayable  |
 | keywords  | String - Searchable, Displayable  |
 
-**Note** : Amazon Kendra has 15 reserved fields, which you can map to your document attributes. For more information, please refer [Index](https://docs.aws.amazon.com/kendra/latest/dg/hiw-index.html)
+**Note** : Amazon Kendra has 15 reserved fields, which you can map to your document attributes. For more information, please refer [Index](https://docs.aws.amazon.com/kendra/latest/dg/hiw-index.html). One of them we are using in our metadata.json file is *_source_uri* which override defaults and points to the actual sample web page rather than S3 Object path. Since *_source_uri* is a reserved field in Kendra, we don't have to add to add it definition. 
 
 
 ### Step 6 : Sync/Index your Data source. 
 
-With all set up, we will now sync our data source in Step 4 above. 
+With all set up, we will now On-Demand sync our data source in Step 4 above. 
 
 #### Select the data source and click Sync now
 
@@ -251,4 +254,24 @@ With our content indexed, lets search indexed content
 #### Search the content
 
 ![](images/searchIndex2.png)
+
+## Conclusion and Clean Up
+
+In this tutorial we saw how we can use in Kendra the S3-metadata option to apply custom attributes to your documents using metadata files. With this base you can now scale your architecture according to your requirements. 
+
+In these last steps we will clean up our environment we need to delete a few things so we don't end up with unnecessary charges.
+
+1. First step is to remove our Amazon Kendra index.
+   - Click on "Services" on the top menu bar and search for Kendra to get to the Amazon Kendra homepage
+   - Click "Indexes" on the sidebar menu to get to our list of indexes
+   - Check the box next to our index we created in this tutorial
+   - Click on Actions, then Delete
+
+2. Next we will delete our S3 bucket
+   - Click on "Services" on the top menu bar and search for S3 to get to the S3 homepage
+   - Find your S3 bucket created in this tutorial and check the box next to it
+   - In the menu near the top click on "Delete"
+   - You will be prompted with some information about deleting your bucket. This will delete the bucket and all of its contents. Enter your bucket name here and click "Confirm".
+
+Your index and bucket we used in this tutorial should now be deleted.
 
