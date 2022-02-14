@@ -135,5 +135,5 @@ Any lateste version of Node.js installed. At the time of writing this tutorial t
     ```
     node exportDocumentsKendraMetadata.js
     ```
-
 5. It will create files under 'data/documents/' and 'data/metadata/' which we will copy in S3 bucket
+
