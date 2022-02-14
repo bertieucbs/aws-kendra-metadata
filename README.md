@@ -121,19 +121,11 @@ Once all the steps are done and verified, you can search your content.
 
 ### Step 1
 
-##### prerequisite 
+##### Prerequisite 
+
 Any lateste version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. 
 
-1. Create a folder 'KendraMetaData' on your local and download the 'exportDocumentsKendraMetadata.js' node.js file in it. run 'npm install' to install the dependancies listed in 'package.json' file. 
-2. Within 'KendraMetaData', create two more folders 'data/documents/' and 'data/metadata/'
-3. The sample code will do the following 
-   - Iterate through each of sample web urls and fetch basic info like title, description, keywords etc.
-   - Create <<fileName>>.txt and put 'description' in it for indexing. Store in folder 'data/documents/'
-   - Create <<fileName>>.txt.metadata.json with custom attributes/metadata about the document. Store in folder 'data/metadata/'
-4. Run the sample code by typing 
-    
-    ```
-    node exportDocumentsKendraMetadata.js
-    ```
-5. It will create files under 'data/documents/' and 'data/metadata/' which we will copy in S3 bucket
 
+
+
+    
