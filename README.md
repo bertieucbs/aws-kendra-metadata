@@ -183,6 +183,12 @@ On the Facet definition page in the Amazon Kendra console, you will find 4 optio
 * **Displayable**: Determines whether the field is returned in the query response. The default is true.
 * **Sortable**: Determines whether the field can be used to sort the results of a query. If you specify sorting on a field that does not have Sortable set to true, Amazon Kendra returns an exception. The default is false.
 
+![](images/addFacet1.png)
+
+![](images/addFacet2.png)
+
+Repeat above steps with below Fields adding the data type and index usage types. 
+
 | Fields  | Details (Data Type & Index Type) |
 | ------------- | ------------- |
 | documentID  | String - Searchable, Displayable |
