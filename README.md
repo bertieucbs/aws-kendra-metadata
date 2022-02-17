@@ -253,6 +253,8 @@ With our content indexed, lets search indexed content
 
 #### Search the content
 
+As you can see below our content is indexed successfully and metadata are being reflected under **Document fields** section. The index definitions are also being reflected correctly e.g. **title** and **sitename** as Facets  
+
 ![](images/searchIndex2.png)
 
 ## Conclusion and Clean Up
