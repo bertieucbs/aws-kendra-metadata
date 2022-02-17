@@ -1,6 +1,6 @@
 
 
-# Amazon Kendra - S3 document metadata tutorial
+# Amazon Kendra - S3 document metadata tutorial with json exported content
 
 ### What you'll learn in this tutorial:
 
