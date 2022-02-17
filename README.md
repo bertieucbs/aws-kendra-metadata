@@ -4,8 +4,8 @@
 
 ### What you'll learn in this tutorial:
 
-1. Use Kendra to index your exported content from a CMS or other content source 
-2. You will add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. 
+1. Use Kendra to index your exported content in json format from a CMS or other content sources. 
+2. You will add metadata which is additional information about a document, to documents in an Amazon S3 bucket using a metadata file. 
 3. Create an Amazon Kendra index, Data source , Index fields and sync the data
 4. Search indexed data
 
@@ -21,11 +21,11 @@ Amazon Kendra is a highly accurate and easy to use enterprise search service tha
 
 When the source of your data is an Amazon S3 bucket or an Amazon S3 data source, you can apply custom attributes to your documents using metadata files. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
 
-Your document metadata is defined in a JSON file. The file must be a UTF-8 text file without a BOM marker. The file name of the JSON file should be document.extension.metadata.json, where "document" is the name of the document that the metadata applies to and "extension" is the file extension for the document.
+Your document metadata is defined in a JSON file. The file must be a UTF-8 text file without a BOM marker. The file name of the JSON file should be **document.extension.metadata.json**, where "document" is the name of the document that the metadata applies to and "extension" is the file extension for the document.
 
-The content of the JSON file follows this template. All of the attributes are optional. If you don't specify the _source_uri, then the links returned by Amazon Kendra in search results point to the Amazon S3 bucket that contains the document. 
+The content of the JSON file follows below template. All of the attributes are optional. If you don't specify the _source_uri, then the links returned by Amazon Kendra in search results point to the Amazon S3 bucket that contains the document. So in below example you can override it. 
 
-###### Below is an example from the developer documentations mentioned above
+###### Below is an example schema from the developer documentations mentioned above
 
 ```
 {
@@ -55,22 +55,22 @@ The content of the JSON file follows this template. All of the attributes are op
 ```
 
 - You can add additional information to the Attributes field about a document that you use to filter queries or to group query responses. For more information, see Creating custom document attributes of Amazon Kendra's dev document.
-- The AccessControlList field enables you to filter the response from a query so that only certain users and groups have access to documents. For more information, see Filtering on user context of Amazon Kendra's dev document. We will not be covering AccessControlList in this tutorial
+- The **AccessControlList** field enables you to filter the response from a query so that only certain users and groups have access to documents. For more information, see Filtering on user context of Amazon Kendra's dev document. We will not be covering AccessControlList in this tutorial
 
 ## Background
 
-You may have a situation where there is an existing CMS or content which you would like to export out in JSON and index it in Kendra. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
+You may have a situation where there is an existing CMS or content which you would like to export out in json format and index it in Kendra. For example one json file per web page. You can add metadata, additional information about a document, to documents in an Amazon S3 bucket using a metadata file. Each metadata file is associated with an indexed document. 
 
-In this demo, we will export two files from sample webpages with our sample code
+In this demo, we will export two files from sample webpages with the help of our helper node.js code. You may have your own export process and this is just for example purpose. 
 
 * A document with primary text/blob which you want to index. 
-* Associated metadata, additional information about that document
+* Associated metadata, additional information about that document in the schema covered above. 
 
 
 Example
 
-- quarantine-isolation.txt --> This will have main text (example *description*  which you want to index
-- quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document. 
+- **quarantine-isolation.txt** --> We will have our main text (example *description*) in this which we want to index primarily
+- **quarantine-isolation.txt.metadata.json** --> This will have the meta data attributes which you want to export and associate with your above document. 
 
 Below is an example of what quarantine-isolation.txt.metadata.json would contain
 
@@ -101,20 +101,20 @@ We will be implementing below architecture for our demo.
 ![](images/kendra-metadata.drawio.png)
 
 
-Step 1 : Export your sample web pages into following files
+Step 1 : Export your sample web pages into following files. You can use any extentions for the primary document you like, for the purpose of tutorial we will use .txt
 
-- quarantine-isolation.txt --> This will have main text (example description which you want to index)
+- quarantine-isolation.txt --> We will have our main text (example *description*) in this which we want to index primarily
 - quarantine-isolation.txt.metadata.json --> This will have the meta data attributes which you want to export and associate with your document.
 
-Step 2 : Create following folders in your sample S3 bucket and upload the files as directed below
+Step 2 : Create following folders in your sample S3 bucket and upload the exported files as directed below
 
-- **data/** : This will have main text (example *description* which you want to index e.g. *quarantine-isolation.txt*
-- **metadata/data/** : This will have the meta data attributes which you want to export and associate with your document. e.g. *quarantine-isolation.txt.metadata.json*
+- **data/** : This will have main exported document with the text (example *description*) which you want to index e.g. **quarantine-isolation.txt**
+- **metadata/data/** : This will have the meta data attributes which you want to export and associate with your document. e.g. **quarantine-isolation.txt.metadata.json**
 
 Step 3 : Do the following in Amazon Kendra 
 
 * Create Kendra index. 
-* Create Datasource using S3 bucket as source and pointing to data and metadata folders. Reference : [Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
+* Create Datasource using S3 bucket as source and pointing to **data/** and **metadata/** folders. Reference : [Getting started with an Amazon S3 data source (console)](https://docs.aws.amazon.com/kendra/latest/dg/getting-started-s3.html) 
 * Use the console or the [UpdateIndex API](https://docs.aws.amazon.com/kendra/latest/dg/API_UpdateIndex.html) to create the index fields. The supported field types are date, long, string, and string list. Reference : [Creating custom document attributes](https://docs.aws.amazon.com/kendra/latest/dg/custom-attributes.html)
 * Sync the content
 
@@ -122,11 +122,11 @@ Once all the steps are done and verified, you can search your content.
 
 ## Getting Started
 
-### Step 1
+### Step 1 : Helper exporter code and lambda function
 
 ##### Prerequisites
 
-**Note** : *Any latest version of Node.js installed. At the time of writing this tutorial the version of Node is v12.16.1. Ensure its in your classpath. *
+**Note** : *Any latest version of Node.js installed. At the time of writing this tutorial the version of Node used is v12.16.1. Ensure its in your classpath. *
 
 1. Create a folder 'KendraMetaData' on your local or [AWS Cloud9](https://aws.amazon.com/cloud9/) and download the 'exportDocumentsKendraMetadata.js' node.js file in it. Run 'npm install' to install the dependancies listed in 'package.json' file. 
 2. Within 'KendraMetaData', create two more folders 'data/documents/' and 'data/metadata/'
@@ -134,7 +134,7 @@ Once all the steps are done and verified, you can search your content.
    - Iterate through each of sample web urls and fetch basic info like 'title', 'description', 'keywords' etc.
    - Create 'fileName.txt' and put 'description' in it for indexing. Programme will store in folder 'data/documents/'
    - Create 'fileName.txt.metadata.json' with custom attributes/metadata about the document. Programme will store in folder 'data/metadata/'
-7. Run the sample code by typing and verify the outputs and generated files in the folders
+7. Run the sample code by typing below and verify the outputs and generated files in the folders
 
 ```
 node exportDocumentsKendraMetadata.js
@@ -154,11 +154,11 @@ Once the bucket is created, we will create two folders
 
 For the uploads follow the process:
 
-Upload the generated files from your local folder under *'data/documents/'* to S3 bucket's *data/*
+Upload the generated files from your local folder under **'data/documents/'** to S3 bucket's **data/**
 
 ![](images/s3Document.png)
 
-Upload the generated files from your local folder under *'data/metadata/'* to S3 bucket's *metadata/data/*
+Upload the generated files from your local folder under **'data/metadata/'** to S3 bucket's **metadata/data/**
 
 ![](images/s3DocumentMetadata.png)
 
